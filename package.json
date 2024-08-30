@@ -1,0 +1,21 @@
+{
+  "name": "bun-server-template",
+  "module": "./src/index.ts",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/server/httpServer.ts",
+    "start": "bun ./src/server/httpServer.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.8",
+    "prettier": "^3.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "reflect-metadata": "^0.2.2"
+  }
+}
