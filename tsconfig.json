@@ -31,8 +31,9 @@
     "paths": {
       "@helpers/*": ["./src/helpers/*"],
       "@models/*": ["./src/models/*"],
-      "@decorators": ["./src/decorators/index"],
-      "@ServerTypes": ["./src/server/Types/index"]
+      "@decorators": ["./src/decorators/index.ts"],
+      "@ServerTypes": ["./src/server/Types/index.ts"],
+      "@controllers": ["./src/controllers/index.ts"]
     }
   }
 }

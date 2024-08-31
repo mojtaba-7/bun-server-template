@@ -1,10 +1,14 @@
 import { controller, get } from '../decorators';
+import { use } from '../decorators/use';
 
+function logger(req: Request): void {
+  console.log(req.url);
+}
 @controller('/test')
-class test {
+export class test {
   @get('/')
+  @use(logger)
   getTest(req: Request): Object {
-    console.log('This is my test function at all');
     return {
       data: 'this data is only for test'
     };

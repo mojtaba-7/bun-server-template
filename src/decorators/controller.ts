@@ -1,5 +1,4 @@
-import 'reflect-metadata';
-import { IMetadataKeys, IMethodType, type IEndPoint } from './TypeKeys';
+import { IMetadataKeys, IMethodType, type IEndPoint, type ITypedHandlerDescriptor } from './TypeKeys';
 import { convertToPathPrefixSafty } from './helpers';
 
 const allEndpoint: IEndPoint[] = [];
@@ -10,17 +9,22 @@ export function controller(pathPrefix: string) {
     controllerFunctionNames = controllerFunctionNames.filter((cfm) => cfm !== 'constructor');
 
     for (let controllerFunctionName of controllerFunctionNames) {
-      const handler = target.prototype['getTest'];
+      const handler = target.prototype[controllerFunctionName];
       const route = Reflect.getMetadata(IMetadataKeys.path, target.prototype, controllerFunctionName);
       const method = Reflect.getMetadata(IMetadataKeys.method, target.prototype, controllerFunctionName) as IMethodType;
+      const customMiddleware: ITypedHandlerDescriptor[] = Reflect.getMetadata(
+        IMetadataKeys.customMiddleware,
+        target.prototype,
+        controllerFunctionName
+      );
 
-      // TODO: handle middleware
       const safePathPrefix = convertToPathPrefixSafty(pathPrefix, route);
 
       allEndpoint.push({
         handler,
         route: safePathPrefix,
-        method
+        method,
+        customMiddleware
       });
     }
   };
