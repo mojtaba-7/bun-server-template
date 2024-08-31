@@ -1,7 +1,8 @@
 export enum IMetadataKeys {
   ALL_ENDPOINT = 'ALL_ENDPOINT',
   path = 'path',
-  method = 'method'
+  method = 'method',
+  customMiddleware = 'customMiddleware'
 }
 
 export enum IMethodType {
@@ -18,4 +19,5 @@ export interface IEndPoint {
   handler: ITypedHandlerDescriptor;
   route: string;
   method: string;
+  customMiddleware: ITypedHandlerDescriptor[];
 }

@@ -1,6 +1,9 @@
+import 'reflect-metadata';
+import '@controllers';
 import { getAllEndPoints } from '@decorators';
 import { ENV, getHeaders, IValidMode } from '@ServerTypes';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const applicationHeaders = getHeaders();
@@ -14,8 +17,11 @@ Bun.serve({
 
       if (url.pathname === end.route && req.method === end.method) {
         const response = await end.handler(req);
+        for (let middleware of end.customMiddleware) {
+          await middleware(req);
+        }
 
-        return new Response(response);
+        return new Response(JSON.stringify(response));
       }
     }
 
