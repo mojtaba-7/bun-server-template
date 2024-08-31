@@ -18,4 +18,9 @@ Run as development mode:
 bun run dev
 ```
 
+### Coding Guids:
+
+- use decorators to define your endpints
+- don't use **_any_** type at all
+
 This project was created using `bun init` in bun v1.1.25. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
