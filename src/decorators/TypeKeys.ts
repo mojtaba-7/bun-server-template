@@ -1,3 +1,5 @@
+import type { IResponse } from '@ServerTypes';
+
 export enum IMetadataKeys {
   ALL_ENDPOINT = 'ALL_ENDPOINT',
   path = 'path',
@@ -13,7 +15,7 @@ export enum IMethodType {
 }
 
 // TODO: fix this any type
-export type ITypedHandlerDescriptor = (req: Request) => any;
+export type ITypedHandlerDescriptor = (req: Request) => IResponse<any>;
 
 export interface IEndPoint {
   handler: ITypedHandlerDescriptor;
