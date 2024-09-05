@@ -1,16 +1,18 @@
+import { GetTestService } from '@services';
 import { controller, get } from '../decorators';
 import { use } from '../decorators/use';
 
-function logger(req: Request): void {
+function printUrl(req: Request): void {
   console.log(req.url);
 }
 @controller('/test')
 export class test {
   @get('/')
-  @use(logger)
+  @use(printUrl)
   getTest(req: Request): Object {
+    const res = new GetTestService().handle(req);
     return {
-      data: 'this data is only for test'
+      data: res
     };
   }
 }

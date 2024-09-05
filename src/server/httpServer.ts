@@ -3,6 +3,7 @@ import '@controllers';
 import { getAllEndPoints } from '@decorators';
 import { ENV, getHeaders, IValidMode } from '@ServerTypes';
 import dotenv from 'dotenv';
+import { LoggerUtil } from '@loggerUtils';
 
 dotenv.config();
 
@@ -41,5 +42,6 @@ Bun.serve({
   reusePort: true
 });
 
-// TODO: write strong console logger to the project
-console.log(`Server Running On Port ${ENV.port}\nMode: ${ENV.mode}`);
+// TODO: please select correct artitecture to use @LoggerInitialized instead
+const logger = LoggerUtil.getLogger();
+logger.info(`Server Running On Port ${ENV.port}\ \ Mode: ${ENV.mode}`);
