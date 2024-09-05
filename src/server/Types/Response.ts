@@ -8,13 +8,15 @@ export enum IStatus {
 // TODO move it to best location and handle multi language
 export enum IMessage {
   itemCreated = 'item successfuly created!',
-  itemNotFound = 'sorry! item not found'
+  itemNotFound = 'sorry! item not found',
+  defaultErrorMessage = 'Default Error Message'
 }
 
 export interface IResponse<T> {
-  data: T | null;
-  documentCount: number;
-  timeToResponse: string;
+  data: T;
+  documentCount?: number;
+  timeToResponse?: string;
   status: IStatus;
+  statusCode?: number;
   message?: IMessage;
 }

@@ -1,4 +1,4 @@
-import { LoggerUtil } from '@loggerUtils';
+import { LoggerUtil } from '@utils';
 
 export function LoggerInitialized(): PropertyDecorator {
   return (target: Object, propertyKey: string | symbol) => {
