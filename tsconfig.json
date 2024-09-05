@@ -33,7 +33,9 @@
       "@models/*": ["./src/models/*"],
       "@decorators": ["./src/decorators/index.ts"],
       "@ServerTypes": ["./src/server/Types/index.ts"],
-      "@controllers": ["./src/controllers/index.ts"]
+      "@controllers": ["./src/controllers/index.ts"],
+      "@loggerUtils": ["./src/utils/index.ts"],
+      "@services": ["./src/services/index.ts"]
     }
   }
 }
