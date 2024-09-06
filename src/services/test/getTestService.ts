@@ -11,7 +11,7 @@ export class GetTestService {
     // this.logger.info('This is info');
     this.logger.error('This is error');
     // throw CustomError(IMessage.itemNotFound);
-    throw new Error('hi');
+    // throw new Error('hi');
     return {
       data: ['data for test'],
       status: IStatus.success,

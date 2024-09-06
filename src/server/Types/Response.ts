@@ -12,11 +12,13 @@ export enum IMessage {
   defaultErrorMessage = 'Default Error Message'
 }
 
-export interface IResponse<T> {
+export interface IResponseData<T> {
   data: T;
   documentCount?: number;
   timeToResponse?: string;
   status: IStatus;
   statusCode?: number;
-  message?: IMessage;
+  message?: IMessage | string;
 }
+
+export type IResponse<T> = IResponseData<T> | Error;
