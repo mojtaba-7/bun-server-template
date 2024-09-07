@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import '@controllers';
-import { getAllEndPoints } from '@decorators';
+import { getAllEndPoints, IMethodType } from '@decorators';
 import { ENV, getHeaders, IStatus, IValidMode } from '@ServerTypes';
 import dotenv from 'dotenv';
 import { CustomError, LoggerUtil, decodeCustomError } from '@utils';
@@ -24,12 +24,19 @@ Bun.serve({
 
       if (url.pathname === end.route && req.method === end.method) {
         try {
-          // extract body data
-          const inputData = (await req.json()) as Object | undefined;
+          // extract data
+          let inputData = {} as { [key: string]: any };
+          if (end.method === IMethodType.post) {
+            inputData = (await req.json()) as Object;
+          } else if (end.method === IMethodType.get) {
+            url.searchParams.forEach((value, key) => {
+              inputData[key] = value;
+            });
+          }
           req.bodyData = inputData;
 
           // validator
-          const validateSchema: JSONSchemaType<any> = end.validate;
+          const validateSchema: JSONSchemaType<any> = end.validate || {};
           const validate = ajv.compile(validateSchema);
           const isValid = validate(inputData);
           if (!isValid && validate.errors) {
