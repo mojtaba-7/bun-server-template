@@ -1,10 +1,12 @@
 import type { IResponse } from '@ServerTypes';
+import type { JSONSchemaType } from 'ajv';
 
 export enum IMetadataKeys {
   ALL_ENDPOINT = 'ALL_ENDPOINT',
   path = 'path',
   method = 'method',
-  customMiddleware = 'customMiddleware'
+  customMiddleware = 'customMiddleware',
+  validate = 'validate'
 }
 
 export enum IMethodType {
@@ -21,5 +23,6 @@ export interface IEndPoint {
   handler: ITypedHandlerDescriptor;
   route: string;
   method: string;
+  validate: JSONSchemaType<any>;
   customMiddleware: ITypedHandlerDescriptor[];
 }

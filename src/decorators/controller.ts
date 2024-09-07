@@ -12,6 +12,7 @@ export function controller(pathPrefix: string) {
       const handler = target.prototype[controllerFunctionName];
       const route = Reflect.getMetadata(IMetadataKeys.path, target.prototype, controllerFunctionName);
       const method = Reflect.getMetadata(IMetadataKeys.method, target.prototype, controllerFunctionName) as IMethodType;
+      const validate = Reflect.getMetadata(IMetadataKeys.validate, target.prototype, controllerFunctionName);
       const customMiddleware: ITypedHandlerDescriptor[] = Reflect.getMetadata(
         IMetadataKeys.customMiddleware,
         target.prototype,
@@ -24,7 +25,8 @@ export function controller(pathPrefix: string) {
         handler,
         route: safePathPrefix,
         method,
-        customMiddleware
+        customMiddleware,
+        validate
       });
     }
   };

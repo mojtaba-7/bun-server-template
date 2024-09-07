@@ -2,7 +2,7 @@ import { IMetadataKeys, IMethodType, type ITypedHandlerDescriptor } from './Type
 
 function routeBinder(method: IMethodType) {
   return function (path: string) {
-    return function (target: Object, key: string, desc: TypedPropertyDescriptor<ITypedHandlerDescriptor>): void {
+    return function (target: Object, key: string, desc: TypedPropertyDescriptor<any>): void {
       Reflect.defineMetadata(IMetadataKeys.path, path, target, key);
       Reflect.defineMetadata(IMetadataKeys.method, method, target, key);
     };

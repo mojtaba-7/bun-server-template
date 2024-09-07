@@ -3,10 +3,10 @@ import { IMessage, IStatus } from '@ServerTypes';
 interface IError {
   statusCode: number;
   status: IStatus;
-  errorMessage: IMessage;
+  errorMessage: IMessage | string;
 }
 
-export function CustomError(errorMessage: IMessage, statusCode = 400, status = IStatus.fail) {
+export function CustomError(errorMessage: IMessage | string, statusCode = 400, status = IStatus.fail) {
   const error: IError = {
     statusCode,
     status: status,
