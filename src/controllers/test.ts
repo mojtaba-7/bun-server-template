@@ -20,6 +20,21 @@ export class test {
     return res;
   }
 
+  @get('/:id')
+  getOne(req: IRequest): IResponse<string> {
+    return {
+      data: JSON.stringify(req.bodyData),
+      status: IStatus.success
+    };
+  }
+  @get('/all')
+  getAll(req: IRequest): IResponse<string> {
+    return {
+      data: JSON.stringify(req.bodyData),
+      status: IStatus.success
+    };
+  }
+
   @post('/')
   @use(printUrl)
   @validate<IInput>({
