@@ -25,7 +25,7 @@ export function controller(pathPrefix: string) {
         handler,
         route: safePathPrefix,
         method,
-        customMiddleware,
+        customMiddleware: customMiddleware || [],
         validate
       });
     }
