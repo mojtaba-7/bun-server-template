@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { CustomError, LoggerUtil, decodeCustomError, matchDynamicRoute } from '@utils';
 import type { IResponse, IRequest, IResponseData } from '@ServerTypes';
 import Ajv, { type JSONSchemaType } from 'ajv';
+import mongodbConfig from './config/mongodbConfig';
 
 dotenv.config();
 
@@ -114,5 +115,15 @@ async function handleRequest(
     );
   }
 }
+
+mongodbConfig
+  .start()
+  .then(() => {
+    logger.info(`Database Connected`);
+  })
+  .catch((err) => {
+    logger.info(`Database Connection Has Error: ${err.message}`);
+    process.exit(1);
+  });
 
 logger.info(`Server Running On Port ${ENV.port}\ \ Mode: ${ENV.mode}`);

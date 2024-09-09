@@ -16,6 +16,10 @@ const defaultPort = 1400;
 const httpPortEnv = process.env.HTTP_PORT as number | undefined;
 const appLogFile = process.env.APP_LOG_FILE as string;
 
+const mongodbUri = process.env.MONGODB_URI as string;
+const mongodbUsername = process.env.MONGODB_USERNAME as string;
+const mongodbPassword = process.env.MONGODB_PASSWORD as string;
+
 const isAppLogFileExist = await checkFileExists(appLogFile);
 if (!isAppLogFileExist) {
   throw new Error(`Log file with address ${appLogFile} does not exists!`);
@@ -23,5 +27,8 @@ if (!isAppLogFileExist) {
 export const ENV = {
   mode: modeEnv ? modeEnv : IValidMode.development,
   port: httpPortEnv ? httpPortEnv : defaultPort,
-  appLogFile: appLogFile
+  appLogFile: appLogFile,
+  mongodbUri,
+  mongodbUsername,
+  mongodbPassword
 };
