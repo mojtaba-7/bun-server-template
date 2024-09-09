@@ -9,7 +9,8 @@ export enum IStatus {
 export enum IMessage {
   itemCreated = 'item successfuly created!',
   itemNotFound = 'sorry! item not found',
-  defaultErrorMessage = 'Default Error Message'
+  defaultErrorMessage = 'Default Error Message',
+  internalServerError = 'Internal Error'
 }
 
 export interface IResponseData<T> {
