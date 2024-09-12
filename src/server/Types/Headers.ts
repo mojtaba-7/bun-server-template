@@ -22,6 +22,17 @@ enum IValidHeaderTypes {
   loginToken = 'lt',
   language = 'lang'
 }
+
+enum IFileExtention {
+  html = '.html',
+  css = '.css',
+  js = '.js',
+  png = '.png',
+  jpg = '.jpg',
+  jpeg = '.jpeg',
+  svg = '.svg'
+}
+
 const validHeaderValues: IValidHeaderTypes[] = [
   IValidHeaderTypes.ContentType,
   IValidHeaderTypes.Authorization,
@@ -38,4 +49,15 @@ export function getHeaders(): IHeadersTypes {
     'Access-Control-Allow-Methods': validMethodValues.join(', '),
     'Access-Control-Allow-Origin': IValidAllowOrigin.allSites
   };
+}
+
+// Helper function to set Content-Type based on file extension
+export function getContentType(filePath: string) {
+  if (filePath.endsWith(IFileExtention.html)) return 'text/html';
+  if (filePath.endsWith(IFileExtention.css)) return 'text/css';
+  if (filePath.endsWith(IFileExtention.js)) return 'application/javascript';
+  if (filePath.endsWith(IFileExtention.png)) return 'image/png';
+  if (filePath.endsWith(IFileExtention.jpg) || filePath.endsWith(IFileExtention.jpeg)) return 'image/jpeg';
+  if (filePath.endsWith(IFileExtention.svg)) return 'image/svg+xml';
+  return 'text/plain';
 }

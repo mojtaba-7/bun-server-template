@@ -1,12 +1,17 @@
 import 'reflect-metadata';
 import '@controllers';
-import { getAllEndPoints, IMethodType, type IEndPoint } from '@decorators';
-import { ENV, getHeaders, IStatus, IValidMode } from '@ServerTypes';
+import { getAllEndPoints, type IEndPoint } from '@decorators';
+import { ENV, getContentType, getHeaders, IStatus, IValidMode } from '@ServerTypes';
 import dotenv from 'dotenv';
-import { CustomError, LoggerUtil, decodeCustomError, matchDynamicRoute } from '@utils';
-import type { IResponse, IRequest, IResponseData } from '@ServerTypes';
+import { CustomError, LoggerUtil, matchDynamicRoute } from '@utils';
+import type { IRequest, IResponseData } from '@ServerTypes';
 import Ajv, { type JSONSchemaType } from 'ajv';
 import mongodbConfig from './config/mongodbConfig';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+
+// Path to our public folder
+const publicDir = path.join(__dirname, '../../', '/public');
 
 dotenv.config();
 
@@ -20,6 +25,43 @@ Bun.serve({
     const startDate = Date.now();
     const ends = getAllEndPoints();
     const url = new URL(req.url) as URL;
+
+    const notFoundData = JSON.stringify({
+      data: null,
+      status: IStatus.serverError,
+      statusCode: 404,
+      message: 'Route not found'
+    });
+
+    /* Handle static file serving */
+    // Set the file path
+
+    if (url.pathname.startsWith('/public')) {
+      try {
+        let filePath = path.join(publicDir, url.pathname.replace('/public', ''));
+        const fileData = await readFile(filePath);
+        if (!fileData) {
+          return new Response(notFoundData, {
+            headers: applicationHeaders,
+            status: 404
+          });
+        }
+        const fileUint8ArrayData = new Uint8Array(fileData);
+
+        // Return the response with the correct file type
+        return new Response(fileUint8ArrayData, {
+          headers: {
+            'Content-Type': getContentType(filePath)
+          }
+        });
+      } catch (err) {
+        logger.error(`Error on reading file ${err}`);
+        return new Response(notFoundData, {
+          headers: applicationHeaders,
+          status: 404
+        });
+      }
+    }
 
     // First, prioritize static routes over dynamic routes
     const staticEnd = ends.find((end) => url.pathname === end.route && req.method === end.method);
@@ -36,18 +78,10 @@ Bun.serve({
     }
 
     // If no route matches, return 404
-    return new Response(
-      JSON.stringify({
-        data: null,
-        status: IStatus.serverError,
-        statusCode: 404,
-        message: 'Route not found'
-      }),
-      {
-        headers: applicationHeaders,
-        status: 404
-      }
-    );
+    return new Response(notFoundData, {
+      headers: applicationHeaders,
+      status: 404
+    });
   },
   development: ENV.mode === IValidMode.development,
   hostname: '0.0.0.0',
