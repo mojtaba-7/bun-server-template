@@ -16,6 +16,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@typegoose/typegoose": "^12.7.0",
     "ajv": "^8.17.1",
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.1",

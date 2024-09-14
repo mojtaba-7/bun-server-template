@@ -15,8 +15,8 @@ function printUrl(req: Request): void {
 export class test {
   @get('/')
   @use(printUrl)
-  getTest(req: Request): IResponse<string[]> {
-    const res = new GetTestService().handle(req);
+  async getTest(req: Request): Promise<IResponse<string[]>> {
+    const res = await new GetTestService().handle(req);
     return res;
   }
 
