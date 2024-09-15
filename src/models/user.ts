@@ -5,7 +5,7 @@ export enum IUserLanguage {
   germany = 'de'
 }
 
-export class User {
+export class IUser {
   @prop()
   public name?: string;
 
@@ -26,4 +26,4 @@ export class User {
   public balance!: number;
 }
 
-export const UserModel = getModelForClass(User)<User>;
+export const UserModel = getModelForClass(IUser)<IUser>;

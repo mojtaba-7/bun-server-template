@@ -30,12 +30,13 @@
 
     "paths": {
       "@helpers/*": ["./src/helpers/*"],
-      "@models/*": ["./src/models/*"],
+      "@models*": ["./src/models/index.ts"],
       "@decorators": ["./src/decorators/index.ts"],
       "@ServerTypes": ["./src/server/Types/index.ts"],
       "@controllers": ["./src/controllers/index.ts"],
       "@utils": ["./src/utils/index.ts"],
-      "@services": ["./src/services/index.ts"]
+      "@services": ["./src/services/index.ts"],
+      "@repositories": ["./src/repositories/index.ts"]
     }
   }
 }

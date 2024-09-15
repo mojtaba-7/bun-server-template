@@ -1,5 +1,6 @@
 import { LoggerInitialized } from '@decorators';
-import { IUserLanguage, UserModel } from '@models/user';
+import { IUserLanguage } from '@models';
+import { userRepository } from '@repositories';
 import { IStatus, type IResponse } from '@ServerTypes';
 import type { Logger } from 'winston';
 
@@ -9,13 +10,12 @@ export class GetTestService {
 
   async handle(req: Request): Promise<IResponse<string[]> | Error> {
     this.logger.error('This is error');
-    const user = new UserModel({
+    const user = await userRepository.create({
       name: 'Mojtaba',
       age: 24,
       balance: 10,
       language: IUserLanguage.english
     });
-    await user.save();
 
     this.logger.info({ user });
     return {
