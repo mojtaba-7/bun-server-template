@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server/httpServer.ts",
-    "start": "bun ./src/server/httpServer.ts"
+    "start": "bun ./src/worker.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.1.8",
