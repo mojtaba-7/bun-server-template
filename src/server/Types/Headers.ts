@@ -1,6 +1,6 @@
 import { IMethodType } from '@decorators';
 
-type IHeadersTypes = {
+export type IHeadersTypes = {
   'Content-Type': string;
   'Access-Control-Allow-Origin': string;
   'Access-Control-Allow-Methods': string;
