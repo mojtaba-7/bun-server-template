@@ -27,7 +27,18 @@ class Server {
   }
 
   async start() {
+    Bun.serve({
+      fetch: this.handleRequest.bind(this),
+      development: ENV.mode === IValidMode.development,
+      hostname: '0.0.0.0',
+      port: ENV.port,
+      reusePort: true
+    });
+
+    this.logger.info(`Server Running On Port ${ENV.port} \ Mode: ${ENV.mode}`);
+
     try {
+      this.logger.info(`Database Connecting...`);
       await mongodbConfig.start();
       this.logger.info(`Database Connected`);
     } catch (err) {
@@ -38,16 +49,6 @@ class Server {
       }
       process.exit(1);
     }
-
-    Bun.serve({
-      fetch: this.handleRequest.bind(this),
-      development: ENV.mode === IValidMode.development,
-      hostname: '0.0.0.0',
-      port: ENV.port,
-      reusePort: true
-    });
-
-    this.logger.info(`Server Running On Port ${ENV.port} \ Mode: ${ENV.mode}`);
   }
 
   private async handleRequest(req: IRequest) {
