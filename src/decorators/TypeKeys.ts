@@ -1,3 +1,4 @@
+import type { IUserRole } from '@models*';
 import type { IResponse } from '@ServerTypes';
 import type { JSONSchemaType } from 'ajv';
 
@@ -6,7 +7,9 @@ export enum IMetadataKeys {
   path = 'path',
   method = 'method',
   customMiddleware = 'customMiddleware',
-  validate = 'validate'
+  validate = 'validate',
+  authorize = 'authorize',
+  authenticate = 'authenticate'
 }
 
 export enum IMethodType {
@@ -25,4 +28,6 @@ export interface IEndPoint {
   method: string;
   validate: JSONSchemaType<any>;
   customMiddleware: ITypedHandlerDescriptor[];
+  authenticate: boolean;
+  authorize: IUserRole;
 }

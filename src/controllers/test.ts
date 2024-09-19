@@ -1,6 +1,7 @@
 import { GetTestService } from '@services';
-import { controller, get, post, use, validate } from '@decorators';
+import { authenticate, authorize, controller, get, post, use, validate } from '@decorators';
 import { IStatus, type IRequest, type IResponse } from '@ServerTypes';
+import { IUserRole } from '@models*';
 
 // TODO: move input interfaces to correct place
 interface IInput {
@@ -15,6 +16,8 @@ function printUrl(req: Request): void {
 export class test {
   @get('/')
   @use(printUrl)
+  @authenticate
+  @authorize(IUserRole.user)
   async getTest(req: Request): Promise<IResponse<string[]>> {
     const res = await new GetTestService().handle(req);
     return res;
