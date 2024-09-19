@@ -136,6 +136,14 @@ class RequestHandler {
     params?: { [key: string]: string }
   ): Promise<Response> {
     try {
+      // first of all we authenticate then authorize the request
+      if (end.authenticate) {
+        // authenticate and save user date to req.user
+      }
+      if (end.authorize.length > 0) {
+        // authorize request
+      }
+
       let inputData: IRequestInput = {};
       if (end.method === 'POST') {
         inputData = (await req.json()) as IRequestInput;

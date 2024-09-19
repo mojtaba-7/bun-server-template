@@ -17,7 +17,7 @@ export function controller(pathPrefix: string) {
         IMetadataKeys.authorize,
         target.prototype,
         controllerFunctionName
-      ) as IUserRole;
+      ) as IUserRole[];
       const authenticate = Reflect.getMetadata(
         IMetadataKeys.authenticate,
         target.prototype,

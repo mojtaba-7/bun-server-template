@@ -17,7 +17,7 @@ export class test {
   @get('/')
   @use(printUrl)
   @authenticate
-  @authorize(IUserRole.user)
+  @authorize([IUserRole.user])
   async getTest(req: Request): Promise<IResponse<string[]>> {
     const res = await new GetTestService().handle(req);
     return res;

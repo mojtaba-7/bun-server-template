@@ -29,5 +29,5 @@ export interface IEndPoint {
   validate: JSONSchemaType<any>;
   customMiddleware: ITypedHandlerDescriptor[];
   authenticate: boolean;
-  authorize: IUserRole;
+  authorize: IUserRole[];
 }
