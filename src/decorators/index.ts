@@ -5,3 +5,5 @@ export * from './logger';
 export * from './validate';
 export * from './use';
 export * from './validate';
+export * from './authenticate';
+export * from './authorize';

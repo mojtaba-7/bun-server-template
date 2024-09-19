@@ -5,6 +5,11 @@ export enum IUserLanguage {
   germany = 'de'
 }
 
+export enum IUserRole {
+  user = 'user',
+  superAdmin = 'superAdmin'
+}
+
 export class IUser {
   @prop()
   public name?: string;
@@ -24,6 +29,9 @@ export class IUser {
     }
   })
   public balance!: number;
+
+  @prop({ enum: IUserRole, type: String, default: [IUserRole.user] })
+  roles!: IUserRole[];
 }
 
 export const UserModel = getModelForClass(IUser)<IUser>;
