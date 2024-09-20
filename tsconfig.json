@@ -36,7 +36,8 @@
       "@controllers": ["./src/controllers/index.ts"],
       "@utils": ["./src/utils/index.ts"],
       "@services": ["./src/services/index.ts"],
-      "@repositories": ["./src/repositories/index.ts"]
+      "@repositories": ["./src/repositories/index.ts"],
+      "@serverConfigs": ["./src/server/config/index.ts"]
     }
   }
 }

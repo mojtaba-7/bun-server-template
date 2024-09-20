@@ -8,7 +8,7 @@ import type { IHeadersTypes, IRequest, IRequestInput, IResponseData } from '@Ser
 import Ajv, { type JSONSchemaType } from 'ajv';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import mongodbConfig from './config/mongodbConfig';
+import { MongoServiceConfig } from '@serverConfigs';
 import type { Logger } from 'winston';
 
 dotenv.config();
@@ -39,7 +39,7 @@ class Server {
 
     try {
       this.logger.info(`Database Connecting...`);
-      await mongodbConfig.start();
+      await MongoServiceConfig.start();
       this.logger.info(`Database Connected`);
     } catch (err) {
       if (err instanceof Error) {
