@@ -1,5 +1,5 @@
 import { LoggerInitialized } from '@decorators';
-import { IUserLanguage } from '@models';
+import { IUserRole } from '@models';
 import { userRepository } from '@repositories';
 import { IStatus, type IResponse } from '@ServerTypes';
 import type { Logger } from 'winston';
@@ -14,7 +14,7 @@ export class GetTestService {
       name: 'Mojtaba',
       age: 24,
       balance: 10,
-      language: IUserLanguage.english
+      roles: [IUserRole.user]
     });
 
     this.logger.info({ user });
