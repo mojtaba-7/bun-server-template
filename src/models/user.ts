@@ -1,24 +1,23 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-
-export enum IUserLanguage {
-  english = 'en',
-  germany = 'de'
-}
+import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 
 export enum IUserRole {
   user = 'user',
   superAdmin = 'superAdmin'
 }
-
+@modelOptions({
+  schemaOptions: {
+    timestamps: true
+  },
+  options: {
+    customName: 'users'
+  }
+})
 export class IUser {
   @prop()
   public name?: string;
 
   @prop({ required: true })
   public age!: number; // This is a single Primitive
-
-  @prop({ enum: IUserLanguage, required: true, type: String })
-  public language!: IUserLanguage;
 
   @prop({
     validate: {
