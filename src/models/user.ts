@@ -17,17 +17,10 @@ export class IUser {
   public name?: string;
 
   @prop({ required: true })
-  public age!: number; // This is a single Primitive
+  public username!: string;
 
-  @prop({
-    validate: {
-      validator: (input) => {
-        return input <= 10;
-      },
-      message: 'value grather than 10'
-    }
-  })
-  public balance!: number;
+  @prop({ required: true })
+  public password!: string;
 
   @prop({ enum: IUserRole, type: String, default: [IUserRole.user] })
   roles!: IUserRole[];

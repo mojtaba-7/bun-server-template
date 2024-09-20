@@ -13,6 +13,7 @@ export enum ISessionLanguage {
 }
 
 export enum ISessionPlatform {
+  system = 'system',
   web = 'web',
   android = 'android',
   ios = 'ios'
@@ -28,7 +29,7 @@ export enum ISessionPlatform {
 })
 @index({ status: 1, token: 1 })
 export class ISession {
-  @prop()
+  @prop({ unique: true })
   public token!: string;
 
   @prop({ ref: () => IUser })
