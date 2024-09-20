@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server/httpServer.ts",
-    "start": "bun ./src/worker.ts"
+    "start": "bun ./src/worker.ts",
+    "create-user": "bun ./src/seeders/userSeed.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.1.8",
@@ -17,7 +18,9 @@
   },
   "dependencies": {
     "@typegoose/typegoose": "^12.7.0",
+    "@types/bcryptjs": "^2.4.6",
     "ajv": "^8.17.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.1",
     "reflect-metadata": "^0.2.2",

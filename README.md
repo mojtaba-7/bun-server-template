@@ -18,6 +18,12 @@ Run as development mode:
 bun run dev
 ```
 
+To create an user:
+
+```bash
+bun create-user
+```
+
 ### Coding Guids:
 
 - use decorators to define your endpints

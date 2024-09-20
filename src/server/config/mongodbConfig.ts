@@ -24,4 +24,4 @@ class MongoService implements IConfig {
   }
 }
 
-export default new MongoService();
+export const MongoServiceConfig = new MongoService();
