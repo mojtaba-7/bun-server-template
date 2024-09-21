@@ -33,6 +33,12 @@ enum IFileExtention {
   svg = '.svg'
 }
 
+export interface IRequestIP {
+  address: string;
+  family: string; // IPv4 | IPv6
+  port: number;
+}
+
 const validHeaderValues: IValidHeaderTypes[] = [
   IValidHeaderTypes.ContentType,
   IValidHeaderTypes.Authorization,

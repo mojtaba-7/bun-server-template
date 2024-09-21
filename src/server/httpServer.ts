@@ -4,7 +4,7 @@ import { getAllEndPoints, LoggerInitialized, type IEndPoint } from '@decorators'
 import { ENV, getContentType, getHeaders, IStatus, IValidMode } from '@ServerTypes';
 import dotenv from 'dotenv';
 import { CustomError, LoggerUtil, matchDynamicRoute } from '@utils';
-import type { IHeadersTypes, IRequest, IRequestInput, IResponseData } from '@ServerTypes';
+import type { IHeadersTypes, IRequest, IRequestInput, IRequestIP, IResponseData } from '@ServerTypes';
 import Ajv, { type JSONSchemaType } from 'ajv';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -21,13 +21,14 @@ class Server {
   private ajv = new Ajv();
   private fileHandler = new FileHandler();
   private requestHandler = new RequestHandler(this.ajv, this.headers);
+  public server: any;
 
   constructor() {
     this.start();
   }
 
   async start() {
-    Bun.serve({
+    this.server = Bun.serve({
       fetch: this.handleRequest.bind(this),
       development: ENV.mode === IValidMode.development,
       hostname: '0.0.0.0',
@@ -61,7 +62,8 @@ class Server {
     }
 
     // Handle API requests (both static and dynamic routes)
-    return await this.requestHandler.handleAPIRequest(req, url, startDate);
+    const ip = this.server.requestIP(req) as IRequestIP;
+    return await this.requestHandler.handleAPIRequest(req, url, startDate, ip);
   }
 }
 
@@ -108,20 +110,20 @@ class RequestHandler {
     private headers: IHeadersTypes
   ) {}
 
-  async handleAPIRequest(req: IRequest, url: URL, startDate: number): Promise<Response> {
+  async handleAPIRequest(req: IRequest, url: URL, startDate: number, ip: IRequestIP): Promise<Response> {
     const endpoints = getAllEndPoints();
 
     // Static route handling
     const staticEnd = endpoints.find((end) => url.pathname === end.route && req.method === end.method);
     if (staticEnd) {
-      return await this.processEndpoint(staticEnd, req, url, startDate);
+      return await this.processEndpoint(staticEnd, req, url, startDate, ip);
     }
 
     // Dynamic route handling
     for (let end of endpoints) {
       const params = matchDynamicRoute(url.pathname, end.route);
       if (params && req.method === end.method) {
-        return await this.processEndpoint(end, req, url, startDate, params);
+        return await this.processEndpoint(end, req, url, startDate, ip, params);
       }
     }
 
@@ -133,6 +135,7 @@ class RequestHandler {
     req: IRequest,
     url: URL,
     startDate: number,
+    ip: IRequestIP,
     params?: { [key: string]: string }
   ): Promise<Response> {
     try {
@@ -140,7 +143,7 @@ class RequestHandler {
       if (end.authenticate) {
         // authenticate and save user date to req.user
       }
-      if (end.authorize.length > 0) {
+      if (end.authorize?.length > 0) {
         // authorize request
       }
 
@@ -155,6 +158,11 @@ class RequestHandler {
       }
 
       req.bodyData = inputData;
+
+      req.ip = ip.address;
+
+      const token = req.headers.get('token');
+      req.token = token ?? undefined;
 
       // Schema validation
       const validateSchema: JSONSchemaType<any> = end.validate || {};

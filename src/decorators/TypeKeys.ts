@@ -1,4 +1,4 @@
-import type { IUserRole } from '@models*';
+import type { IUserRole } from '@models';
 import type { IResponse } from '@ServerTypes';
 import type { JSONSchemaType } from 'ajv';
 
