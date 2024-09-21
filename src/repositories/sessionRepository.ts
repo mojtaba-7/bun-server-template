@@ -13,6 +13,12 @@ class SessionRepository {
     await session.save();
     return session;
   }
+
+  async findByToken(token: string) {
+    return SessionModel.findOne({
+      token: token
+    });
+  }
 }
 
 export const sessionRepository = new SessionRepository();

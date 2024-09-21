@@ -10,7 +10,10 @@ export enum IMessage {
   itemCreated = 'item successfuly created!',
   itemNotFound = 'sorry! item not found',
   defaultErrorMessage = 'Default Error Message',
-  internalServerError = 'Internal Error'
+  internalServerError = 'Internal Error',
+  userNotFound = 'User not found',
+  incorrectPassword = 'incorrect password',
+  tokenNotFound = 'first you must start a session'
 }
 
 export interface IResponseData<T> {

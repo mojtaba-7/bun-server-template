@@ -1,4 +1,4 @@
-import { IUser, UserModel } from '@models';
+import { IUser, IUserProps, UserModel } from '@models';
 import bcrypt from 'bcryptjs';
 
 class UserRepository {
@@ -8,6 +8,14 @@ class UserRepository {
     return UserModel.find({
       name: new RegExp(name, 'i')
     });
+  }
+  async findByUsername(username: string, props: IUserProps) {
+    return UserModel.findOne(
+      {
+        username: username
+      },
+      props
+    );
   }
 
   async findById(id: string) {

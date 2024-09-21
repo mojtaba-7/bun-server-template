@@ -1,4 +1,4 @@
-import type { IUserRole } from '@models*';
+import type { IUserRole } from '@models';
 import { IMetadataKeys, IMethodType, type IEndPoint, type ITypedHandlerDescriptor } from './TypeKeys';
 import { convertToPathPrefixSafty } from './helpers';
 

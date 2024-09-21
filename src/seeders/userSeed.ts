@@ -1,4 +1,4 @@
-import { IUserRole, UserModel } from '@models*';
+import { IUserRole, UserModel } from '@models';
 import { userRepository } from '@repositories';
 import { MongoServiceConfig } from '@serverConfigs';
 import { sessionRepository } from '../repositories/sessionRepository';
