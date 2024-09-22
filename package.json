@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/server/httpServer.ts",
+    "dev": "bun --watch src/server/httpServer/index.ts",
     "start": "bun ./src/worker.ts",
     "create-user": "bun ./src/seeders/userSeed.ts"
   },
