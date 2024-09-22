@@ -1,5 +1,6 @@
 import { getModelForClass, index, modelOptions, prop, type Ref } from '@typegoose/typegoose';
 import { IUser } from './user';
+import { Document } from 'mongoose';
 
 export enum ISessionStatus {
   active = 'active',
