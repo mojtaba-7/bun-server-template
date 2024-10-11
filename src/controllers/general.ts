@@ -1,13 +1,14 @@
 import { authenticate, controller, post, validate } from '@decorators';
-import type { IRequest } from '@ServerTypes';
-import { StartSessionService, type IStartSerssionInput } from '@services';
+import { IStatus, type IRequest } from '@ServerTypes';
 import { ISessionLanguage, ISessionPlatform } from '../models/session';
+import { SessionService, type IInitialSessionData } from '@services';
+import { UserService } from '../services/user/UserService';
 
 @controller('/')
 export class General {
   @post('/session')
   @authenticate
-  @validate<IStartSerssionInput>({
+  @validate<IInitialSessionData>({
     type: 'object',
     properties: {
       language: { type: 'string', nullable: true, default: ISessionLanguage.english },
@@ -18,9 +19,16 @@ export class General {
     additionalProperties: false
   })
   async startSession(req: IRequest) {
-    const bodyData = req.bodyData as IStartSerssionInput;
-    const service = new StartSessionService();
-    const result = service.handle(bodyData, req.token);
-    return result;
+    const bodyData = req.bodyData as IInitialSessionData;
+    const sessionService = new SessionService();
+    if (req.hasSession) {
+      sessionService.updateSession(req.session?._id!, bodyData);
+    } else {
+      sessionService.initialSession(bodyData);
+    }
+    return {
+      data: sessionService.session,
+      status: IStatus.success
+    };
   }
 }

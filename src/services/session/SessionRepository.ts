@@ -1,8 +1,5 @@
-import type { Document, ObjectId } from 'mongoose';
-import { ISession, SessionModel } from '../models/session';
+import { ISession, SessionModel, type ObjectIDType } from '@models';
 import Crypto from 'node:crypto';
-import type { DocumentType } from '@typegoose/typegoose';
-import type { ObjectIDType } from '../models/Types';
 
 class SessionRepository {
   get newToken() {
@@ -27,9 +24,9 @@ class SessionRepository {
     return SessionModel.findOneAndUpdate({ token: token }, options, { new: true });
   }
 
-  // async updateByDoc(_doc: DocumentType<ISession>) {
-  //   _doc
-  // }
+  async updateOneById(id: ObjectIDType<ISession>, options: Partial<ISession>) {
+    return SessionModel.findOneAndUpdate({ _id: id }, options, { new: true });
+  }
 }
 
 export const sessionRepository = new SessionRepository();
