@@ -1,6 +1,7 @@
 import { controller, post, validate } from '@decorators';
-import type { IRequest } from '@ServerTypes';
-import { LoginUser, type ILoginUserInput } from '../services/auth/login';
+import { IStatus, type IRequest, type IResponseData } from '@ServerTypes';
+import { UserService, type ILoginUserInput } from '../services/user/UserService';
+import type { ISession, IUser } from '@models';
 
 @controller('/auth')
 export class Auth {
@@ -13,11 +14,15 @@ export class Auth {
     },
     required: ['username', 'password']
   })
-  async login(req: IRequest) {
+  async login(req: IRequest): Promise<IResponseData<IUser>> {
     const body = req.bodyData as ILoginUserInput;
-    const handler = new LoginUser();
-    const result = await handler.handle(body, req.ip, req.token);
+    const userService = new UserService();
+    const user = await userService.findWithUsername(body.username);
+    await user.validatePassword(body.password);
 
-    return result;
+    return {
+      data: user.user!,
+      status: IStatus.success
+    };
   }
 }

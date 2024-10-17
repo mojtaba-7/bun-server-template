@@ -50,6 +50,7 @@ export class RequestHandler {
       // first of all we authenticate then authorize the request
       if (end.authenticate) {
         // authenticate and save user date to req.user
+        // const sessionToken = req.headers.get()
       }
       if (end.authorize?.length > 0) {
         // authorize request
@@ -70,7 +71,6 @@ export class RequestHandler {
       req.ip = ip.address;
 
       const token = req.headers.get('token');
-      req.token = token ?? undefined;
 
       // Schema validation
       const validateSchema: JSONSchemaType<any> = end.validate || {};
