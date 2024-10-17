@@ -1,5 +1,6 @@
 import { getAllEndPoints, type IEndPoint } from '@decorators';
 import {
+  IMessage,
   IStatus,
   type IHeadersTypes,
   type IRequest,
@@ -11,6 +12,7 @@ import { CustomError, matchDynamicRoute } from '@utils';
 import type { JSONSchemaType } from 'ajv';
 import type Ajv from 'ajv';
 import { ErrorHandler } from './errorHandler';
+import { sessionRepository } from '@services';
 
 export class RequestHandler {
   constructor(
@@ -48,7 +50,16 @@ export class RequestHandler {
   ): Promise<Response> {
     try {
       // first of all we authenticate then authorize the request
+      const token = req.headers.get('token');
+
       if (end.authenticate) {
+        // FIXME: put it to a function
+        if (token) {
+          const session = await sessionRepository.findByToken(token);
+          if (!session) {
+            throw CustomError(IMessage.sessionNotFound);
+          }
+        }
         // authenticate and save user date to req.user
         // const sessionToken = req.headers.get()
       }
@@ -69,8 +80,6 @@ export class RequestHandler {
       req.bodyData = inputData;
 
       req.ip = ip.address;
-
-      const token = req.headers.get('token');
 
       // Schema validation
       const validateSchema: JSONSchemaType<any> = end.validate || {};

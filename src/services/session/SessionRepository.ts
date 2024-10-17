@@ -1,4 +1,4 @@
-import { ISession, SessionModel, type ObjectIDType } from '@models';
+import { ISession, SessionFields, SessionModel, UserModel, type ObjectIDType } from '@models';
 import Crypto from 'node:crypto';
 
 class SessionRepository {
@@ -17,7 +17,11 @@ class SessionRepository {
   async findByToken(token: string) {
     return SessionModel.findOne({
       token: token
-    });
+    }).populate([
+      {
+        path: SessionFields.user!
+      }
+    ]);
   }
 
   async updateOneByToken(token: string, options: Partial<ISession>) {
