@@ -13,6 +13,8 @@ import type { JSONSchemaType } from 'ajv';
 import type Ajv from 'ajv';
 import { ErrorHandler } from './errorHandler';
 import { sessionRepository } from '@services';
+import type { IUser } from '@models';
+import type { DocumentType } from '@typegoose/typegoose';
 
 export class RequestHandler {
   constructor(
@@ -51,6 +53,8 @@ export class RequestHandler {
     try {
       // first of all we authenticate then authorize the request
       const token = req.headers.get('token');
+      req.hasSession = false;
+      req.hasUser = false;
 
       if (end.authenticate) {
         // FIXME: put it to a function
@@ -59,9 +63,12 @@ export class RequestHandler {
           if (!session) {
             throw CustomError(IMessage.sessionNotFound);
           }
+          const user = session.user as DocumentType<IUser>;
+          req.session = session;
+          req.hasSession = true;
+          req.user = user;
+          req.hasUser = !!user;
         }
-        // authenticate and save user date to req.user
-        // const sessionToken = req.headers.get()
       }
       if (end.authorize?.length > 0) {
         // authorize request

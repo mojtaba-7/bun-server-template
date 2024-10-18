@@ -56,7 +56,19 @@ type SessionFieldNames = {
 };
 
 export const SessionFields: SessionFieldNames = new Proxy<SessionFieldNames>({} as SessionFieldNames, {
-  get: (_, property) => property.toString()
+  get: (_, property) => property.toString
 });
+
+export const ISessionProps = {
+  self: [
+    SessionFields.token,
+    SessionFields.user,
+    SessionFields.status,
+    SessionFields.platform,
+    SessionFields.language,
+    SessionFields.device,
+    SessionFields.build
+  ]
+};
 
 export const SessionModel = getModelForClass(ISession)<ISession>;

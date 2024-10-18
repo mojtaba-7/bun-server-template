@@ -14,7 +14,8 @@ export enum IMessage {
   userNotFound = 'User not found',
   incorrectPassword = 'incorrect password',
   tokenNotFound = 'first, you must start a session',
-  sessionNotFound = 'session not found'
+  sessionNotFound = 'session not found',
+  accessDenied = 'access denied!'
 }
 
 export interface IResponseData<T> {

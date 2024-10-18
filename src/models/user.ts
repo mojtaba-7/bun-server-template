@@ -26,14 +26,22 @@ export class IUser {
   @prop({ enum: IUserRole, type: String, default: [IUserRole.user] })
   roles!: IUserRole[];
 
-  toProps?(props: IUserProps) {
-    return schemaToProps<IUser, IUserProps>(this, props);
+  toProps?(props: typeof IUserProps) {
+    return schemaToProps<IUser, any>(this, props);
   }
 }
 
-export enum IUserProps {
-  system = 'name username roles password',
-  self = 'name username roles'
-}
+type UserFieldNames = {
+  [K in keyof IUser]: string;
+};
+
+export const UserFields: UserFieldNames = new Proxy<UserFieldNames>({} as UserFieldNames, {
+  get: (_, property) => property.toString
+});
+
+export const IUserProps = {
+  system: [UserFields.name, UserFields.username, UserFields.roles, UserFields.password],
+  self: [UserFields.name, UserFields.username, UserFields.roles]
+};
 
 export const UserModel = getModelForClass(IUser)<IUser>;
