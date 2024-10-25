@@ -71,7 +71,9 @@ export class RequestHandler {
         }
       }
       if (end.authorize?.length > 0) {
-        // authorize request
+        if (!req.hasUser) {
+          throw CustomError(IMessage.accessDenied, 403);
+        }
       }
 
       let inputData: IRequestInput = {};
