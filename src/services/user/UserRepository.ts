@@ -9,7 +9,7 @@ class UserRepository {
       name: new RegExp(name, 'i')
     });
   }
-  async findByUsername(username: string, props: IUserProps) {
+  async findByUsername(username: string, props: typeof IUserProps) {
     return UserModel.findOne(
       {
         username: username

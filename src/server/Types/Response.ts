@@ -13,7 +13,9 @@ export enum IMessage {
   internalServerError = 'Internal Error',
   userNotFound = 'User not found',
   incorrectPassword = 'incorrect password',
-  tokenNotFound = 'first you must start a session'
+  tokenNotFound = 'first, you must start a session',
+  sessionNotFound = 'session not found',
+  accessDenied = 'access denied!'
 }
 
 export interface IResponseData<T> {

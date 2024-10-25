@@ -6,6 +6,7 @@ export interface IRequest extends Request {
   user: DocumentType<IUser> | null;
   session: DocumentType<ISession> | null;
   hasSession: boolean;
+  hasUser: boolean;
   ip: string;
   // token: string | undefined;
 }

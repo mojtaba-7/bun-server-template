@@ -51,4 +51,24 @@ export class ISession {
   public device?: string;
 }
 
+type SessionFieldNames = {
+  [K in keyof ISession]: string;
+};
+
+export const SessionFields: SessionFieldNames = new Proxy<SessionFieldNames>({} as SessionFieldNames, {
+  get: (_, property) => property.toString
+});
+
+export const ISessionProps = {
+  self: [
+    SessionFields.token,
+    SessionFields.user,
+    SessionFields.status,
+    SessionFields.platform,
+    SessionFields.language,
+    SessionFields.device,
+    SessionFields.build
+  ]
+};
+
 export const SessionModel = getModelForClass(ISession)<ISession>;
