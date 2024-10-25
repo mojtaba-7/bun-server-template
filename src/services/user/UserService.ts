@@ -22,11 +22,11 @@ export class UserService {
   }
 
   async findWithUsername(username: string) {
-    const user = await userRepository.findByUsername(username, IUserProps.system);
-
+    const user = await userRepository.findByUsername(username);
     if (!user) {
-      throw CustomError(IMessage.userNotFound);
+      throw CustomError(IMessage.incorrectPassword, 401, IStatus.fail);
     }
+    this.user = user;
 
     return this;
   }
@@ -35,7 +35,7 @@ export class UserService {
     const userPassword = this.user?.password!;
     const isPasswordCorrect = bcrypt.compareSync(password, userPassword);
     if (!isPasswordCorrect) {
-      throw CustomError(IMessage.incorrectPassword);
+      throw CustomError(IMessage.incorrectPassword, 401, IStatus.fail);
     }
   }
 }

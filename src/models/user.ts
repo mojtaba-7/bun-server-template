@@ -1,5 +1,6 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import { schemaToProps } from '../utils/model/schemaHelpers';
+import mongoose from 'mongoose';
 
 export enum IUserRole {
   user = 'user',
@@ -14,6 +15,8 @@ export enum IUserRole {
   }
 })
 export class IUser {
+  public _id?: mongoose.Types.ObjectId; // Explicitly declare _id
+
   @prop()
   public name?: string;
 

@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@types/bun": "^1.1.8",
+    "@types/supertest": "^6.0.2",
     "@types/winston": "^2.4.4",
     "prettier": "^3.3.3"
   },
@@ -24,6 +25,7 @@
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.1",
     "reflect-metadata": "^0.2.2",
+    "supertest": "^7.0.0",
     "winston": "^3.14.2"
   }
 }

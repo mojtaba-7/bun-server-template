@@ -1,7 +1,7 @@
 import { controller, post, validate } from '@decorators';
 import { IStatus, type IRequest, type IResponseData } from '@ServerTypes';
 import { UserService, type ILoginUserInput } from '../services/user/UserService';
-import type { ISession, IUser } from '@models';
+import type { IUser } from '@models';
 
 @controller('/auth')
 export class Auth {

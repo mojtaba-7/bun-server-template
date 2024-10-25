@@ -1,7 +1,6 @@
 import { IUserRole, UserModel } from '@models';
-import { userRepository } from '@repositories';
+import { userRepository, sessionRepository } from '@services';
 import { MongoServiceConfig } from '@serverConfigs';
-import { sessionRepository } from '../repositories/sessionRepository';
 import { ISessionLanguage, ISessionPlatform, ISessionStatus } from '../models/session';
 
 const readline = require('readline');

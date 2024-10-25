@@ -2,19 +2,24 @@ import { IStatus, type IHeadersTypes } from '@ServerTypes';
 
 export class ErrorHandler {
   static handleError(error: any, startDate: number, headers: IHeadersTypes): Response {
-    const errorMessage = error instanceof Error ? error.message : 'Server error';
+    error = JSON.parse(error.message);
+    const errorMessage = error.errorMessage ?? 'Server error';
+    const statusCode = error.statusCode ?? 500;
+    const status = error.status ?? IStatus.serverError;
+
+    console.log({ error });
 
     return new Response(
       JSON.stringify({
         data: null,
-        status: IStatus.serverError,
-        statusCode: 500,
+        status: status,
+        statusCode: statusCode,
         message: errorMessage,
         timeToResponse: `~ ${Date.now() - startDate}ms`
       }),
       {
         headers: headers,
-        status: 500
+        status: statusCode
       }
     );
   }
