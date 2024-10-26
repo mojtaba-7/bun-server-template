@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server/httpServer/index.ts",
-    "start": "bun ./src/worker.ts",
-    "test-all": "bun test",
-    "test-integrate": "bun run dev & sleep 2 && bun test integrate",
+    "start": "bun src/server/httpServer/index.ts",
+    "worker": "bun ./src/worker.ts",
+    "test-all": "bun run test-unit && bun run test-learning && bun run test-integrate",
+    "test-integrate": "bash ./bash/test-integrate.sh",
     "test-learning": "bun test learning",
     "test-unit": "bun test unit",
     "create-user": "bun ./src/seeders/userSeed.ts"
@@ -26,10 +27,12 @@
     "@types/bcryptjs": "^2.4.6",
     "ajv": "^8.17.1",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^9.0.1",
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.1",
     "reflect-metadata": "^0.2.2",
     "supertest": "^7.0.0",
+    "wait-on": "^8.0.1",
     "winston": "^3.14.2"
   }
 }

@@ -27,6 +27,9 @@ class Server {
 
   constructor() {
     this.start();
+
+    process.on('SIGTERM', this.shutdown);
+    process.on('SIGINT', this.shutdown);
   }
 
   async start() {
@@ -52,6 +55,12 @@ class Server {
       }
       process.exit(1);
     }
+  }
+
+  // Handle shutdown signals
+  shutdown() {
+    console.log('Shutting down server...');
+    process.exit(0);
   }
 
   private async handleRequest(req: IRequest) {
