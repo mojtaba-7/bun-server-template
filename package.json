@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "bun --watch src/server/httpServer/index.ts",
     "start": "bun ./src/worker.ts",
+    "test-all": "bun test",
+    "test-integrate": "bun run dev & sleep 2 && bun test integrate",
+    "test-learning": "bun test learning",
+    "test-unit": "bun test unit",
     "create-user": "bun ./src/seeders/userSeed.ts"
   },
   "devDependencies": {
