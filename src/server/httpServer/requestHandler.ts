@@ -13,8 +13,9 @@ import type { JSONSchemaType } from 'ajv';
 import type Ajv from 'ajv';
 import { ErrorHandler } from './errorHandler';
 import { sessionRepository } from '@services';
-import type { IUser } from '@models';
+import type { IUser, IUserRole } from '@models';
 import type { DocumentType } from '@typegoose/typegoose';
+import { ArrayHelper } from '@helpers/array';
 
 export class RequestHandler {
   constructor(
@@ -72,6 +73,10 @@ export class RequestHandler {
       }
       if (end.authorize?.length > 0) {
         if (!req.hasUser) {
+          throw CustomError(IMessage.accessDenied, 403);
+        }
+
+        if (!ArrayHelper.arrayHasItems<IUserRole>(end.authorize, req.user!.roles)) {
           throw CustomError(IMessage.accessDenied, 403);
         }
       }
