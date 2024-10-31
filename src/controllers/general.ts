@@ -1,11 +1,18 @@
-import { authenticate, controller, post, validate } from '@decorators';
+import { authenticate, controller, post, get, validate } from '@decorators';
 import { IStatus, type IRequest } from '@ServerTypes';
 import { ISessionLanguage, ISessionPlatform } from '../models/session';
 import { SessionService, type IInitialSessionData } from '@services';
-import { UserService } from '../services/user/UserService';
 
 @controller('/')
 export class General {
+  @get('/ping')
+  ping(req: IRequest) {
+    return {
+      data: 'pong',
+      status: IStatus.success
+    };
+  }
+
   @post('/session')
   @authenticate
   @validate<IInitialSessionData>({
