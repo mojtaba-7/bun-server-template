@@ -53,7 +53,7 @@ class Server {
       } else {
         this.logger.error(`Unknown error occurred: ${JSON.stringify(err)}`);
       }
-      process.exit(1);
+      this.shutdown();
     }
   }
 
