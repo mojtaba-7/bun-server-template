@@ -1,5 +1,31 @@
 # bun-server-template
 
+Welcome to the Bun Server Template! This repository uses <a href="https://bun.sh/">Bun</a> to create an HTTP server and
+MongoDB as the primary database. It leverages decorators to define endpoints in a clean and structured way.
+
+Feel free to star the project and contribute by reporting or fixing any issues. 😊
+
+Clone project:
+
+```bash
+git clone project_address
+```
+
+Go to the directory:
+
+```bash
+cd ./bun-server-template
+```
+
+Configure enviroment variables
+
+```bash
+cp .env.example .env
+```
+
+- Enter log file address <i>APP_LOG_FILE</i>"
+- Put <i>MONGODB_URI</i>, <i>MONGODB_USERNAME</i>, <i>MONGODB_PASSWORD</i> based on your approach
+
 To install dependencies:
 
 ```bash
@@ -16,6 +42,12 @@ Run as development mode:
 
 ```bash
 bun run dev
+```
+
+Run Tests:
+
+```bash
+bun run test-all
 ```
 
 To create an user:
