@@ -8,7 +8,7 @@ Feel free to star the project and contribute by reporting or fixing any issues. 
 Clone project:
 
 ```bash
-git clone project_address
+git clone git@github.com:mojtaba-7/bun-server-template.git
 ```
 
 Go to the directory:
